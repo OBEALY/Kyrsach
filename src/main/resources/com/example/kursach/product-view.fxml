@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="352.0" prefWidth="300.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursach.ProductViewController">
+    <ImageView fx:id="productImage" fitHeight="202.0" fitWidth="300" preserveRatio="true" />
+    <Button fx:id="Button_enter" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="заказать" />
+    <Text fx:id="productName" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+    <Text fx:id="productDescription" style="-fx-font-size: 14px;" />
+</VBox>

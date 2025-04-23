@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kursach.AddProductController">
+    <Label text="Добавить новый товар" layoutX="20" layoutY="20"/>
+    <Label text="Название:" layoutX="20" layoutY="60"/>
+    <TextField fx:id="nameField" layoutX="100" layoutY="60" />
+    <Label text="Описание:" layoutX="20" layoutY="100"/>
+    <TextArea fx:id="descriptionField" layoutX="100" layoutY="100" prefHeight="100" />
+    <Label text="Путь к изображению:" layoutX="20" layoutY="220"/>
+    <TextField fx:id="imagePathField" layoutX="150" layoutY="220" />
+    <Button text="Добавить" layoutX="100" layoutY="260" onAction="#handleAddProduct"/>
+    <Button text="Отмена" layoutX="200" layoutY="260" onAction="#handleCancel"/>
+</AnchorPane>
