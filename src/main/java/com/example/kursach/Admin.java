@@ -22,7 +22,7 @@ public class Admin extends Application {
 
 
         // Загрузка FXML в сцену
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 450);
 
         // Установка заголовка окна
         stage.setTitle("TechoDom");

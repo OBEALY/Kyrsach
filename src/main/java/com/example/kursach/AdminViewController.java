@@ -44,6 +44,9 @@ public class AdminViewController {
     private ScrollPane ScrollPanel1;
 
     @FXML
+    private Button Button_change;
+
+    @FXML
     private Button up_Button1;
 
     @FXML
@@ -57,6 +60,9 @@ public class AdminViewController {
 
     @FXML
     private Button Button_ADD;
+
+    @FXML
+    private Button Button_Del;
 
 
 
@@ -107,6 +113,8 @@ public class AdminViewController {
         end_Button.setOnAction(actionEvent -> closeApplication());
         SearchText.setOnAction(actionEvent -> handleSearch());
         Button_ADD.setOnAction(actionEvent -> handleAddProduct());
+        Button_change.setOnAction(actionEvent -> handleChangeProduct());
+        Button_Del.setOnAction(actionEvent -> handleDeleteProduct());
 
 
     }
@@ -310,4 +318,39 @@ public class AdminViewController {
             e.printStackTrace();
         }
     }
+
+
+    private void handleDeleteProduct() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delete-product-view.fxml"));
+            Stage deleteProductStage = new Stage();
+            deleteProductStage.setTitle("Удалить товар");
+            deleteProductStage.setScene(new Scene(fxmlLoader.load(), 292, 225));
+            deleteProductStage.setResizable(false);
+            deleteProductStage.initStyle(StageStyle.UTILITY);
+
+            deleteProductStage.show();
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+    private void handleChangeProduct() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("change-product-view.fxml"));
+            Stage changeProductStage = new Stage();
+            changeProductStage.setTitle("Изменить товар");
+            changeProductStage.setScene(new Scene(fxmlLoader.load(), 291, 405));
+            changeProductStage.setResizable(false);
+            changeProductStage.initStyle(StageStyle.UTILITY);
+
+            changeProductStage.show();
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }

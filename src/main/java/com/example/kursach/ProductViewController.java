@@ -52,18 +52,11 @@ public class ProductViewController {
             productName.setText(product.getName());
             productDescription.setText(product.getDescription());
 
-            // Автоматическое добавление продукта в избранное
-            addToFavorites(currentProduct);
         } else {
             System.err.println("Product is null");
         }
     }
 
-    private void addToFavorites(Product product) {
-        // Логика добавления товара в избранное
-        // Например, вы можете сохранить его в каком-то списке или базе данных
-        showAlert("Товар добавлен в избранное", product.getName() + " был успешно добавлен в избранное.");
-    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
