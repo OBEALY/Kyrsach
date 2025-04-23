@@ -11,13 +11,15 @@ import java.util.List;
 public class Admin extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
 
-        // Создание экземпляра ProductClient
+
+
         ProductClient client = new ProductClient();
 
         // Создание списка продуктов, используя метод из ProductClient
         List<Product> products = client.fetchProducts("192.168.198.1", 12345); // Замените на нужный адрес и порт
+
 
         // Загрузка FXML в сцену
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -28,7 +30,7 @@ public class Admin extends Application {
         stage.setScene(scene);
 
         // Получение контроллера и передача продуктов
-        HelloController controller = fxmlLoader.getController();
+        AdminViewController controller = fxmlLoader.getController();
         controller.setProducts(products); // Передача продуктов после загрузки сцены
 
         // Отображение окна

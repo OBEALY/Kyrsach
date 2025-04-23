@@ -38,9 +38,6 @@ public class AdminViewController {
     private Button Button_ViewPC;
 
     @FXML
-    private Button view_Button;
-
-    @FXML
     private TilePane TilePanel;
 
     @FXML
@@ -57,6 +54,9 @@ public class AdminViewController {
 
     @FXML
     private ComboBox<?> SortBox;
+
+    @FXML
+    private Button Button_ADD;
 
 
 
@@ -87,7 +87,6 @@ public class AdminViewController {
     @FXML
     void initialize() {
         assert Button_ViewPC != null : "fx:id=\"Button_ViewPC\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert view_Button != null : "fx:id=\"view_Button\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert TilePanel != null : "fx:id=\"TilePanel\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert ScrollPanel1 != null : "fx:id=\"ScrollPanel1\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert up_Button1 != null : "fx:id=\"up_Button1\" was not injected: check your FXML file 'hello-view.fxml'.";
@@ -103,18 +102,32 @@ public class AdminViewController {
 
         // Устанавливаем обработчики кнопок
         Button_ViewPC.setOnAction(actionEvent -> showProducts());
-        view_Button.setOnAction(actionEvent -> showCompanyInfo());
         up_Button1.setOnAction(actionEvent -> nextPage());
         Back_Button.setOnAction(actionEvent -> previousPage());
         end_Button.setOnAction(actionEvent -> closeApplication());
         SearchText.setOnAction(actionEvent -> handleSearch());
+        Button_ADD.setOnAction(actionEvent -> handleAddProduct());
+
+
     }
 
     public void setProducts(List<Product> products) {
+
         ProductManager.getInstance().setProducts(products);
     }
 
     private void showProducts() {
+
+        ProductClient client = new ProductClient();
+        client.start(); // Запуск клиента
+
+        // Создание списка продуктов, используя метод из ProductClient
+        List<Product> products = client.fetchProducts("192.168.198.1", 12345); // Замените на нужный адрес и порт
+
+        setProducts(products);
+
+
+
         TilePanel.setVisible(true);
         ScrollPanel1.setVisible(true);
         up_Button1.setVisible(true);
@@ -124,6 +137,7 @@ public class AdminViewController {
     }
 
     void loadProducts() {
+
         TilePanel.getChildren().clear();
         List<Product> allProducts = ProductManager.getInstance().getProducts();
 
@@ -222,26 +236,7 @@ public class AdminViewController {
         }
     }
 
-    private void showCompanyInfo() {
-        TilePanel.getChildren().clear();
-        up_Button1.setVisible(false);
-        Back_Button.setVisible(false);
 
-        Text companyInfo = new Text("Добро пожаловать в нашу компанию! Мы предоставляем высококачественные товары и услуги, "
-                + "ориентированные на потребности клиентов. Наша цель - обеспечить лучший сервис и удовлетворение потребностей "
-                + "каждого клиента. Спасибо, что выбрали нас!\n\n"
-                + "Наш магазин работает с 2005 года и предлагает огромный выбор компьютерной техники и периферии. "
-                + "Мы стараемся обеспечить наших клиентов только лучшими продуктами от проверенных производителей. "
-                + "Наша команда профессионалов готова помочь вам в выборе необходимого оборудования и предоставить "
-                + "высококачественное обслуживание в любое время.\n\n");
-
-        companyInfo.setWrappingWidth(400);
-        companyInfo.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-fill: black;");
-
-        TilePanel.getChildren().add(companyInfo);
-        TilePanel.setVisible(true);
-        ScrollPanel1.setVisible(true);
-    }
 
     private void closeApplication() {
         Platform.exit(); // Завершение приложения
@@ -283,5 +278,36 @@ public class AdminViewController {
         // Обновление состояния кнопок "Вперед" и "Назад"
         up_Button1.setDisable(true); // Скрываем кнопку "Вперед" при поиске
         Back_Button.setDisable(true); // Скрываем кнопку "Назад" при поиске
+    }
+
+
+    @FXML
+    private void handleAddProduct() {
+        try {
+            // Загружаем FXML файл для формы добавления продукта
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-product-view.fxml"));
+
+            // Создаем новое окно
+            Stage addProductStage = new Stage();
+            addProductStage.setTitle("Добавить товар");
+
+            // Устанавливаем сцену с заданными размерами
+            Scene scene = new Scene(fxmlLoader.load(), 588, 258);
+            addProductStage.setScene(scene);
+
+            addProductStage.setResizable(false);
+            addProductStage.initStyle(StageStyle.UTILITY);
+
+            // Обработчик закрытия окна, если нужно обновить продукты
+            addProductStage.setOnHidden(event -> {
+                loadProducts(); // Обновляем список продуктов после закрытия, если это необходимо
+            });
+
+            // Показываем новое окно
+            addProductStage.show();
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

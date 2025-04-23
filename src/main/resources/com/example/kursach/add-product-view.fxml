@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.stage.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kursach.AddProductController">
-    <Label text="Добавить новый товар" layoutX="20" layoutY="20"/>
-    <Label text="Название:" layoutX="20" layoutY="60"/>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.kursach.AddProductController">
+    <Label layoutX="20" layoutY="20" text="Добавить новый товар" />
+    <Label layoutX="20" layoutY="60" text="Название:" />
     <TextField fx:id="nameField" layoutX="100" layoutY="60" />
-    <Label text="Описание:" layoutX="20" layoutY="100"/>
+    <Label layoutX="20" layoutY="100" text="Описание:" />
     <TextArea fx:id="descriptionField" layoutX="100" layoutY="100" prefHeight="100" />
-    <Label text="Путь к изображению:" layoutX="20" layoutY="220"/>
+    <Label layoutX="20" layoutY="220" text="Путь к изображению:" />
     <TextField fx:id="imagePathField" layoutX="150" layoutY="220" />
-    <Button text="Добавить" layoutX="100" layoutY="260" onAction="#handleAddProduct"/>
-    <Button text="Отмена" layoutX="200" layoutY="260" onAction="#handleCancel"/>
+    <Button layoutX="320.0" layoutY="220.0" onAction="#handleAddProduct" text="Добавить" />
+    <Button layoutX="418.0" layoutY="220.0" onAction="#handleCancel" text="Отмена" />
 </AnchorPane>

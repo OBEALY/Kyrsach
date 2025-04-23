@@ -18,8 +18,10 @@ public class ProductClient {
     }
 
     public List<Product> fetchProducts(String serverAddress, int port) {
-        try (Socket socket = new Socket(serverAddress, port);
-             ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+        Socket socket = null; // Объявляем сокет вне блока try
+        try {
+            socket = new Socket(serverAddress, port);
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
             // Приведение к типу List<Product>
             @SuppressWarnings("unchecked")
@@ -31,6 +33,15 @@ public class ProductClient {
             System.err.println("Ошибка ввода-вывода: " + e.getMessage());
         } catch (ClassNotFoundException e) {
             System.err.println("Класс не найден: " + e.getMessage());
+        } finally {
+            // Закрываем сокет, если он был открыт
+            if (socket != null && !socket.isClosed()) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    System.err.println("Ошибка при закрытии сокета: " + e.getMessage());
+                }
+            }
         }
 
         return null; // Возврат null в случае ошибки

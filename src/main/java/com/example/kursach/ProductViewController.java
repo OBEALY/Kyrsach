@@ -7,7 +7,8 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class ProductViewController {
 
@@ -20,12 +21,12 @@ public class ProductViewController {
     @FXML
     private Text productDescription;
 
-    @FXML
-    private Button Button_enter;
+    private Product currentProduct; // Хранит текущий продукт
 
     public void setProduct(Product product) {
         // Убедитесь, что продукт не равен null
         if (product != null) {
+            currentProduct = product; // Сохраняем текущий продукт
             Image image = null;
             String imagePath = product.getImagePath(); // Получаем полный путь к изображению
             System.out.println("Загрузка изображения из пути: " + imagePath);
@@ -50,8 +51,25 @@ public class ProductViewController {
             productImage.setImage(image);
             productName.setText(product.getName());
             productDescription.setText(product.getDescription());
+
+            // Автоматическое добавление продукта в избранное
+            addToFavorites(currentProduct);
         } else {
             System.err.println("Product is null");
         }
+    }
+
+    private void addToFavorites(Product product) {
+        // Логика добавления товара в избранное
+        // Например, вы можете сохранить его в каком-то списке или базе данных
+        showAlert("Товар добавлен в избранное", product.getName() + " был успешно добавлен в избранное.");
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

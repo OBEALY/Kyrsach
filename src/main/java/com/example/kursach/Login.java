@@ -28,7 +28,6 @@ public class Login extends Application {
 
         // Автоматический запуск сервера и клиента
         startProductServer();
-        startProductClient();
     }
     private void startProductServer() {
         // Создание и запуск сервера в новом потоке
@@ -42,17 +41,6 @@ public class Login extends Application {
         }).start();
     }
 
-    private void startProductClient() {
-        // Создание и запуск клиента в новом потоке
-        new Thread(() -> {
-            try {
-                ProductClient client = new ProductClient(); // Предполагаем, что у вас есть конструктор по умолчанию
-                client.start(); // Запуск клиента
-            } catch (Exception e) {
-                System.err.println("Ошибка при запуске клиента: " + e.getMessage());
-            }
-        }).start();
-    }
 
     public static void main(String[] args) {
         launch();

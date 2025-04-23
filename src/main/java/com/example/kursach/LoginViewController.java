@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class LoginViewController {
 
@@ -50,6 +52,8 @@ public class LoginViewController {
         }
     }
 
+
+
     private void openHelloView() {
         try {
             // Закрытие текущего окна
@@ -64,15 +68,17 @@ public class LoginViewController {
         }
     }
 
+
+
     private void openAdminView() {
         try {
             // Закрытие текущего окна
             Stage currentStage = (Stage) login_Button.getScene().getWindow();
             currentStage.close();
 
-            // Запуск Admin
-            Admin adminApp = new Admin();
-            adminApp.start(new Stage()); // Запускаем новый экземпляр
+            // Запуск HelloApplication
+            Admin AdminApp = new Admin();
+            AdminApp.start(new Stage()); // Запускаем новый экземпляр
         } catch (Exception e) {
             e.printStackTrace();
         }
